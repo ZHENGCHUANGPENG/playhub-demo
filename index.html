@@ -43,14 +43,14 @@ var CAT='All',Q='';
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 function card(i){var g=GAMES[i];return '<div class="card" onclick="openGame('+i+')"><img loading="lazy" src="'+esc(g.img)+'" alt="'+esc(g.t)+'"><div class="t">'+esc(g.t)+'</div><div class="c">'+esc(cap(g.c))+'</div></div>'}
-function filtered(){return GAMES.map(function(g,i){return i}).filter(function(i){var g=GAMES[i];
-return (CAT==='All'||g.c===CAT)&&(g.t.toLowerCase().indexOf(Q)>=0)})}
-function renderCats(){var cs=['All',[".io", "adventure", "agility", "battle", "casual", "match-3", "puzzle", "racing & driving", "simulation", "sports", "strategy"]];document.getElementById('cats').innerHTML=cs.map(function(c){
+function filtered(){return GAMES.map(function(g,i){return i}).filter(function(i){var g=GAMES[i];var q=Q;
+return (CAT==='All'||g.c===CAT)&&(g.t.toLowerCase().indexOf(q)>=0||g.c.indexOf(q)>=0)})}
+function renderCats(){var cs=['All'].concat([".io", "adventure", "agility", "battle", "casual", "match-3", "puzzle", "racing & driving", "simulation", "sports", "strategy"]);document.getElementById('cats').innerHTML=cs.map(function(c){
 return '<span class="pill'+(c===CAT?' on':'')+'" onclick="setCat(\''+c+'\')">'+esc(cap(c))+'</span>'}).join('')}
 function setCat(c){CAT=c;renderCats();renderHome()}
 function setQ(v){Q=v.toLowerCase();renderHome()}
 function renderHome(){var idx=filtered();
-var h='<h1>\U0001F525 Popular Free Online Games</h1><div class="sub">'+GAMES.length+' games \u00B7 play instantly, no download</div>';
+var h='<h1>🔥 Popular Free Online Games</h1><div class="sub">'+GAMES.length+' games · play instantly, no download</div>';
 h+='<div class="grid">'+idx.map(card).join('')+'</div>';
 if(!idx.length)h+='<div class="nores">No games found.</div>';
 document.getElementById('main').innerHTML=h;window.scrollTo(0,0)}
